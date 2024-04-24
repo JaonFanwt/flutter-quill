@@ -5,6 +5,10 @@ import 'package:meta/meta.dart';
 import '../../../markdown_quill.dart';
 import '../../../quill_delta.dart';
 
+class CustomDeltaX {
+  static Delta Function(String html)? fromHtml;
+}
+
 @immutable
 class DeltaX {
   /// Convert the HTML Raw string to [Delta]
@@ -22,6 +26,10 @@ class DeltaX {
   ///
   @experimental
   static Delta fromHtml(String html) {
+    if (CustomDeltaX.fromHtml != null) {
+      return CustomDeltaX.fromHtml!(html);
+    }
+    
     final markdown = html2md
         .convert(
           html,
