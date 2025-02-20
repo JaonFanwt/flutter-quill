@@ -5,6 +5,10 @@ import 'package:meta/meta.dart' show experimental;
 import '../../quill_delta.dart';
 import '../packages/quill_markdown/markdown_to_delta.dart';
 
+class CustomDeltaX {
+  static Delta Function(String html)? fromHtml;
+}
+
 @experimental
 class DeltaX {
   /// Convert Markdown text to [Delta]
@@ -42,6 +46,9 @@ class DeltaX {
     )
     List<CustomHtmlPart>? customBlocks,
   }) {
+    if (CustomDeltaX.fromHtml != null) {
+      return CustomDeltaX.fromHtml!(htmlText);
+    }
     final htmlToDelta = HtmlToDelta(customBlocks: customBlocks);
     return htmlToDelta.convert(htmlText);
   }
